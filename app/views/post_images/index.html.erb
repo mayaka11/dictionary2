@@ -1,2 +1,23 @@
-<h1>PostImages#index</h1>
-<p>Find me in app/views/post_images/index.html.erb</p>
+<% @post_images.each do |post_image| %> <!--コントローラから渡された@post_images変数内から1つすつ取り出してpost_image変数へ格納します。-->
+  <div>
+
+    <%= link_to post_image_path(post_image.id) do %> <!--詳細ページへのリンク-->
+    <!--link_toでは、doからendの間が、aタグで囲まれた状態になる。結果、image_tagは、aタグに囲まれたimgタグになります-->
+      <%= image_tag post_image.get_image %> <!--imge_tagを使いpost_imageにActiveStorageで設定したimageを表示しています。-->
+                                          <!--「post_image.get_image」の部分はPostImageモデル内に記述したメソッドを呼び出しています -->
+    <% end %>
+
+    <p>
+      投稿ユーザー画像 : <%= image_tag 'sample-author1.jpg' %>
+    </p>
+    <p>
+      ショップ名 : <%= post_image.shop_name %> <!--post_image変数のshop_nameカラムの表示 -->
+    </p>
+    <p>
+      説明 : <%= post_image.caption %> <!--post_image変数のcaptionカラムの表示 -->
+    </p>
+    <p>
+      ユーザーネーム : <%= post_image.user.name %> <!--post_image変数のuser_idに関連付けられているuserモデルのnameカラムの表示 -->
+    </p>
+  </div>
+<% end %>

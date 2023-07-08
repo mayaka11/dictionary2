@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
 
 
   def after_sign_in_path_for(resource)  #サインイン後の遷移先の設定をするメソッド
-    about_path  #Deviseの初期設定ではroot_pathになっていますが、この記入によりAboutページへ遷移するように設定されました。
+    #about_path  #Deviseの初期設定ではroot_pathになっていますが、この記入によりAboutページへ遷移するように設定されました。
+    post_images_path #この記述によりサインインごに投稿画像一覧が表示される
   end
 
   def after_sign_out_path_for(resource)  #サインアウト後の遷移先の設定をするメソッド
