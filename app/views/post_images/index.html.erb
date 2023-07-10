@@ -8,7 +8,9 @@
     <% end %>
 
     <p>
-      投稿ユーザー画像 : <%= image_tag 'sample-author1.jpg' %>
+      <!--投稿ユーザー画像 image_tag 'sample-author1.jpg' -->
+      <!--上記の記述は仮で書いていたため修正する-->
+      投稿ユーザー画像 : <%= image_tag post_image.user.get_profile_image(100,100) %>
     </p>
     <p>
       ショップ名 : <%= post_image.shop_name %> <!--post_image変数のshop_nameカラムの表示 -->
