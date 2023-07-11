@@ -5,11 +5,17 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
 
-  has_many :post_images,dependent: :destroy  #UserモデルにPostImageモデルを関連付ける。Userモデルに対してPostImageモデルが1:Nになるように関連付ける
+  has_many :post_images, dependent: :destroy  #UserモデルにPostImageモデルを関連付ける。Userモデルに対してPostImageモデルが1:Nになるように関連付ける
   #has_manyは直訳すると「たくさん持っている」なので、1:Nの「1」側に当たるモデルに、has_manyを記載する必要がある
 
 
+  has_many :post_comments, dependent: :destroy  #UserモデルとPostCommentモデルの関連付け。User側 1:N PostComment側
+
+
+
   has_one_attached :profile_image #profile_imageという名でActiveStorageでプロフィール画像を保存できるように設定した。
+
+
 
   def get_profile_image(width, height)
     unless profile_image.attached?

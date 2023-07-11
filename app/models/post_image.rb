@@ -2,8 +2,15 @@ class PostImage < ApplicationRecord
 
   has_one_attached :image
 
+
   belongs_to :user  #has_manyとは逆に、1:Nの「N」側に当たるモデルに、belongs_toを記載する必要がある。
   #belongs_toとは直訳すると「～に属する」という意味。
+
+
+  has_many :post_comments, dependent: :destroy #PostImageモデルにPostCommentモデルとの関連付け。 PostImageモデル 1:N PostCommentモデル。
+
+
+
 
 
   #下記は画像が投稿されていない場合にエラーが出るため、回避するための記述
