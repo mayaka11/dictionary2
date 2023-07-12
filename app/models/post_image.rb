@@ -10,7 +10,7 @@ class PostImage < ApplicationRecord
   has_many :post_comments, dependent: :destroy #PostImageモデルにPostCommentモデルとの関連付け。 PostImageモデル 1:N PostCommentモデル。
 
 
-
+  has_many :favorites, dependent: :destroy
 
 
   #下記は画像が投稿されていない場合にエラーが出るため、回避するための記述
@@ -30,5 +30,9 @@ class PostImage < ApplicationRecord
       image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
       image
+  end
+
+  def favorited_by?(user) #このメソッドで引数で渡されたユーザーidがFavoritesテーブル内に存在(exists?)するかどうかを調べます。存在していればtrue,存在していなければfalseを返すようにしています。
+    favorites.exists?(user_id: user.id)
   end
 end

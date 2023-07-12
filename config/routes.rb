@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   #get 'post_images/show'
   #上記3つをまとめて書いた形
   resources :post_images, only: [:new, :create, :index, :show, :destroy] do
-    resources :post_comment, only: [:create] #コメントは投稿画面に対してコメントされます。このため、post_commentsはpost_imagesに結びつきます。このような親子関係を「ネストする」といいます。
+    resource :favorites, only: [:create, :destroy] #resourceと単数形になっています。単数刑にすると/idがURLに含まれなくなります。
+    resources :post_comments, only: [:create, :destroy]
+    #コメントは投稿画面に対してコメントされます。このため、post_commentsはpost_imagesに結びつきます。このような親子関係を「ネストする」といいます。
   end
 
 
