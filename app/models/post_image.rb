@@ -13,6 +13,11 @@ class PostImage < ApplicationRecord
   has_many :favorites, dependent: :destroy
 
 
+#バリデーションの設定
+  validates :shop_name, presence: true #shop_nameが存在しているかを確認するバリデーション
+  validates :image, presence: true #imageが存在しているかを確認するバリデーション
+
+
   #下記は画像が投稿されていない場合にエラーが出るため、回避するための記述
   #def get_image
    # if image.attached?

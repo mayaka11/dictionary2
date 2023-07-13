@@ -1,5 +1,7 @@
 #ここで記入したことは作成しているアプリケーションすべてに影響する
 class ApplicationController < ActionController::Base
+  before_action :authenticate_user!, except: [:top] #ログイン認証が成功していないと、トップページ以外の画面は表示できない仕様へ設定する。
+  #before_actionメソッドは、コントローラが動作する前に実行されます。
   before_action :configure_permitted_parameters, if: :devise_controller? #devise利用の機能（ユーザ登録、ログイン認証など）が使われる前にconfigure_permitted_parametersメソッドが実行される
 
 
