@@ -1,33 +1,46 @@
-<% post_images.each do |post_image| %> <!--コントローラから渡された@post_images変数内から1つすつ取り出してpost_image変数へ格納します。-->
-  <!-- インスタンス変数(@post_images)で記述されていましたが、部分テンプレートファイル内でインスタンス変数を利用すると、-->
-  <!--controller側でインスタンス変数の名前や挙動を変更したとき、部分テンプレート側も変更しなければなりません。これでは再利用しにくいテンプレートになる-->
-  <!--部分テンプレートが呼び出されたときに、Viewから渡される変数が使えるように変更します。この変数には、ローカル変数(post_images)を使用。-->
-  <div>
+<div class="card-list-container py-5">
+  <% post_images.each do |post_image| %> <!--コントローラから渡された@post_images変数内から1つすつ取り出してpost_image変数へ格納します。-->
+    <!-- インスタンス変数(@post_images)で記述されていましたが、部分テンプレートファイル内でインスタンス変数を利用すると、-->
+    <!--controller側でインスタンス変数の名前や挙動を変更したとき、部分テンプレート側も変更しなければなりません。これでは再利用しにくいテンプレートになる-->
+    <!--部分テンプレートが呼び出されたときに、Viewから渡される変数が使えるように変更します。この変数には、ローカル変数(post_images)を使用。-->
 
-    <%= link_to post_image_path(post_image.id) do %> <!--詳細ページへのリンク-->
-    <!--link_toでは、doからendの間が、aタグで囲まれた状態になる。結果、image_tagは、aタグに囲まれたimgタグになります-->
-      <%= image_tag post_image.get_image %> <!--imge_tagを使いpost_imageにActiveStorageで設定したimageを表示しています。-->
+  <div class="card w-50 mx-auto mt-4 shadow-lg">
+
+      <%= link_to post_image_path(post_image.id) do %> <!--詳細ページへのリンク-->
+      <!--link_toでは、doからendの間が、aタグで囲まれた状態になる。結果、image_tagは、aタグに囲まれたimgタグになります-->
+        <%= image_tag post_image.get_image, class:"card-img-top"; %> <!--imge_tagを使いpost_imageにActiveStorageで設定したimageを表示しています。-->
                                           <!--「post_image.get_image」の部分はPostImageモデル内に記述したメソッドを呼び出しています -->
-    <% end %>
+      <% end %>
 
-    <p>
-      <!--投稿ユーザー画像 image_tag 'sample-author1.jpg' -->
-      <!--上記の記述は仮で書いていたため修正する-->
-      投稿ユーザー画像 : <%= image_tag post_image.user.get_profile_image(100,100) %>
-    </p>
-    <p>
-      ショップ名 : <%= post_image.shop_name %> <!--post_image変数のshop_nameカラムの表示 -->
-    </p>
-    <p>
-      説明 : <%= post_image.caption %> <!--post_image変数のcaptionカラムの表示 -->
-    </p>
-    <p>
-      ユーザーネーム : <%= post_image.user.name %> <!--post_image変数のuser_idに関連付けられているuserモデルのnameカラムの表示 -->
-    </p>
-    <p>
-      <%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %> <!--コメント件数を表示する記述-->
-    </p>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-2">
+          <!--投稿ユーザー画像 image_tag 'sample-author1.jpg' -->
+          <!--上記の記述は仮で書いていたため修正する-->
+          <%= image_tag post_image.user.get_profile_image(100,100), class:"mt-3 rounded-circle"; %>
+        </div>
+        <div class="col-10">
+        <p class="card-title">
+          <%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
+          <strong>
+            <i class="far fa-flag"></i>
+            <span><%= post_image.shop_name %></span> <!--post_image変数のshop_nameカラムの表示 -->
+          </strong>
+          <% end %>
+        </p>
+        <p class="card-text">
+          説明 : <%= post_image.caption %> <!--post_image変数のcaptionカラムの表示 -->
+        </p>
+        <span>
+          <i class="fas fa-user"></i> By <%= post_image.user.name %> <!--post_image変数のuser_idに関連付けられているuserモデルのnameカラムの表示 -->
+        </span>
+        <span>
+          <%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id), class:"text-dark" %> <!--コメント件数を表示する記述-->
+        </span>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
-
 <%= paginate post_images %>  <!--ページネーション機能で、1つのページに表示できる数を制限する-->
+</div>
